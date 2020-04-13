@@ -1,6 +1,6 @@
 <?php
-    require_once('function.php');
 
+    require_once('function.php');
     $info ='';
     $task = $_GET['task'] ?? 'report';
     if ( 'seed' == $task ) {
@@ -20,7 +20,7 @@
             // array_push($students,$student);
         //     addStudent($name,$dept,$home,$roll);
             $newId = count($students)+1;
-            echo $newId;
+            // echo $newId;
             $student = array(
                 'id'=>$newId,
                 'name'=>$name,
@@ -32,7 +32,6 @@
             $serialize_data = serialize($students);
             // file_put_contents($db_name,$serialize_data,LOCK_EX);
             // print_r($students);
-            // file_put_contents()
             file_put_contents($db_name,$serialize_data);
             // echo $serialize_data;
         }

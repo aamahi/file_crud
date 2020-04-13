@@ -20,9 +20,12 @@ $students = [
         'roll'=>"38522",
     ]
 ];
+$result = (5+(2-8))*6/2;
+echo $result;
 
-$serialize = serialize($students);
-file_put_contents($file_name,$serialize);
+
+// $serialize = serialize($students);
+// file_put_contents($file_name,$serialize);
 //              Fwrite
 
 

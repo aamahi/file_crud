@@ -74,5 +74,26 @@ $db_name = "/var/www/html/f_crud/file_crud/data/f1.txt";
     <?php
 
 }
+function addStudent($name,$dept,$home,$roll){
+    $db_name = "/var/www/html/f_crud/file_crud/data/f1.txt";
+    
+    $serializeData = file_get_contents($db_name);
+    $students = unserialize($serializeData);
+    $newId = count($student)+1;
+    $student = array(
+        'id'=>$newId,
+        'name'=>$name,
+        'dept'=>$dept,
+        'home'=>$home,
+        'roll'=>$roll
+    );
+    array_push($students,$student);
+
+    $serialize_data = serialize($students);
+    file_put_contents($db_name,$serialize_data,LOCK_EX);
+
+
+}
+
 
 ?>

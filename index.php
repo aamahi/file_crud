@@ -5,12 +5,37 @@
     $task = $_GET['task'] ?? 'report';
     if ( 'seed' == $task ) {
         seed();
-        // if($sed){/
             $info = "Seeding is complete";
-
-        // }else{
-        // $info = "Seeding is not complete";
-        // }
+    }
+    if(isset($_POST['submit'])){
+        $name= filter_input(INPUT_POST,'name',FILTER_SANITIZE_STRING);
+        $dept= filter_input(INPUT_POST,'dept',FILTER_SANITIZE_STRING);
+        $home= filter_input(INPUT_POST,'home',FILTER_SANITIZE_STRING);
+        $roll= filter_input(INPUT_POST,'roll',FILTER_SANITIZE_STRING); 
+        if($name !='' && $dept !='' && $home !='' && $roll != ''){
+            $db_name = "/var/www/html/f_crud/file_crud/data/f1.txt";
+    
+            $serializeData = file_get_contents($db_name);
+            $students = unserialize($serializeData);
+            // array_push($students,$student);
+        //     addStudent($name,$dept,$home,$roll);
+            $newId = count($students)+1;
+            echo $newId;
+            $student = array(
+                'id'=>$newId,
+                'name'=>$name,
+                'dept'=>$dept,
+                'home'=>$home,
+                'roll'=>$roll
+            );
+            array_push($students,$student);
+            $serialize_data = serialize($students);
+            // file_put_contents($db_name,$serialize_data,LOCK_EX);
+            // print_r($students);
+            // file_put_contents()
+            file_put_contents($db_name,$serialize_data);
+            // echo $serialize_data;
+        }
         
     }
 ?>
@@ -48,6 +73,30 @@
                             endif;
                             if('report'== $task):
                                 genarateReport();
+                            endif;
+                
+                            if('add_student'== $task):
+                        ?>
+                            <form action="index.php?task=report" method="post">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dept">Department</label>
+                                    <input type="text" class="form-control" id="dept" name="dept" placeholder="Enter Department">
+                                </div>
+                                <div class="form-group">
+                                    <label for="home">Home Dist</label>
+                                    <input type="text" class="form-control" id="home" name="home" placeholder="Enter Home Dist">
+                                </div>
+                                <div class="form-group">
+                                    <label for="roll">Home Dist</label>
+                                    <input type="number" class="form-control" id="roll" name="roll" placeholder="Enter Roll">
+                                </div>
+                                <button type="submit" name='submit'  class="btn btn-primary">Submit</button>
+                            </form>
+                        <?php
                             endif;
                         ?>
 
